@@ -195,6 +195,7 @@
   <p></p>
 </section>
 
+
 <section class="slide">
   <figure>
     <img class="cover" src="pictures/navalniy_06.jpg" alt="Эволюция подходов к программированию">
@@ -214,7 +215,6 @@
         <li>Аппликативное программирование</li>
         <li>Комбинато́рное программи́рование</li>
         <li>Бесточечное программирование</li>
-        </li>
 
       </ul>
     </li>
@@ -226,7 +226,7 @@
   <p>
     <b>Декларативное программирование</b> - это когда в коде описано
     <mark>что</mark>
-                                          должно получиться.
+    должно получиться.
   </p>
   <p>
     Нам совершенно не интересно,
@@ -271,17 +271,234 @@
 </section>
 
 <section class="slide">
-  <figure>
-    <img class="cover" src="pictures/understend.jpg" alt="Вырви глаз">
-  </figure>
+    <h2>Другими словами</h2>
+    <p class="next">
+        Функциональное программирование -
+        это стиль разработки ПО, где основной акцент делается на функции
+    </p>
+
+    <p class="next">
+        Цель ФП состоит в том, чтобы абстрагировать потоки управления и
+        операции над данными с помощью функций и тем самым исключить
+        побочные эффекты и сократить изменение состояния в приложении.
+    </p>
 </section>
 
 <section class="slide">
-  <h2>Другими словами</h2>
-  <p>
-    Функциональное программирование -
-    это стиль разработки ПО, где основной акцент делается на функции
-  </p>
+    <figure>
+    <img class="cover" src="pictures/understend.jpg" alt="Вырви глаз">
+    </figure>
+</section>
+
+<section class="slide">
+    <h2>Pассмотрим простой пример отображения текста на странице:</h2>
+<pre class="next">
+<code>&lt;script&gt;
+document.querySelector('#msg').innerHTML='&lt;h1&gt;Hello World'&lt;/h1&gt;'
+</code>
+</pre>
+
+<p class="next">
+    Программа проста, но с ее помощью нельзя отображать сообщения в динамическом
+    режиме
+</p>
+</section>
+
+<section class="slide">
+    <p>
+       Перепишем программу позволяя изменять форматирование, содержимое,
+       а возможно и целевой элемент разметки.
+    </p>
+    <pre class="next">
+    <code>&lt;script&gt;
+    function printMessage(elementId, format, message) {
+        document.querySelector(`#${elementId}`).innerHTML =
+        `<${format}>${message}</${format}>`;
+        }
+    printMessage('msg', 'h1','Hello World');
+    </code>
+    </pre>
+</section>
+
+<section class="slide">
+    <h2>Уже лучше =)</h2>
+    <p class="next">
+        Но.
+    </p>
+    <p class="next">
+        Что если требуется вывести сообщение в файл, а не на HTML страницу.
+    </p>
+    <p class="next">
+        С этой целью придется перенести простой мыслительный процесс создания параметрезованных
+        функций на совсем другой уровень, где параметры могут быть не только скалярными
+        величинами, но и функциями, предоставляющими дополнительные функциональные возможности.
+    </p>
+
+</section>
+
+<section class="slide">
+    <h2>Рассмотрим ту же самую программу с применением функционального подхода</h2>
+    <pre class="next">
+    <code>&lt;script&gt;
+    var printMessage = run(addToDom('msg'), h1, echo);
+    printMessage('Hello World');
+    </code>
+    </pre>
+</section>
+
+<section class="slide">
+    <figure>
+    <img class="cover" src="pictures/travolta.gif" alt="Шта">
+    </figure>
+</section>
+
+<section class="slide">
+    <h2>Что же происходит:</h2>
+    <ul lang="ru">
+        <li class="next">
+            Параметр h1 теперь является не скалярной велечиной,
+            а функцией подобно <code>addToDom</code> и <code>Echo</code>
+        </li>
+        <li class="next">
+            Процесс декомпозиции(разложения) программы на более мелкие,
+            пригодные для повторнорго использования, надежные  и понятные части.
+        </li>
+        <li class="next">
+            Объединение этих частей для формирования всей программы,
+            которую легче осмыслить в целом.
+        </li>
+
+    </ul>
+</section>
+
+<section class="slide">
+
+    <ul lang="ru">
+        <li>
+            Последовательный вызов функций <code>addToDom</code>,<code>h1</code> и <code>Echo</code>
+            при помощи волшебной функции  <code>run</code>
+        </li>
+    </ul>
+
+    <p class="next">
+        Функция <code>run</code> связывает каждую вызываемую функцию в цепочку,
+        где значение вызываемое из предыдыущей функции, передается в качестве параметра
+        следующей функции.
+    </p>
+    <p class="next">
+        В данном случае "Hello World", возвращаемая из <code>Echo()</code>,
+        передается <code>h1()</code>, а резуальтат разметки передается <code>addToDom()</code>.
+    </p>
+
+</section>
+
+<section class="slide">
+    <h2>
+        Функция run:
+    </h2>
+    <pre class="next">
+    <code>&lt;script&gt;
+    run = function(f, g, h) {
+        return function(x) {
+            return f(g(h(x)))
+        }
+    }
+    </code>
+    </pre>
+
+</section>
+
+<section class="slide">
+    <h2>
+        Функция addToDom:
+    </h2>
+    <pre class="next">
+    <code>function addToDom(elementId) {
+    return function(content) {
+        document.querySelector(#${elementId})
+                .innerHTML = content;
+        }
+    }
+    </code>
+    </pre>
+
+</section>
+
+<section class="slide">
+    <h2>
+        Функция h1:
+    </h2>
+    <pre class="next">
+    <code>&lt;script&gt;
+        function h1(message) {
+            return '&lt;h1&gt;' + message + '&lt;/h1&gt;'
+        }
+    </code>
+    </pre>
+
+</section>
+
+<section class="slide">
+    <h2>
+        Функция echo:
+    </h2>
+    <pre class="next">
+    <code>&lt;script&gt;
+        function echo(message) {
+            return message
+        }
+    </code>
+    </pre>
+
+</section>
+
+<section class="slide">
+    <h2>Все вместе:</h2>
+    <pre class="next">
+    <code>&lt;script&gt;
+    var printMessage = run(addToDom('msg'), h1, echo);
+    printMessage('Hello World');
+    </code>
+    </pre>
+</section>
+
+<section class="slide">
+    <h2>Почему так?</h2>
+    <p class="next">
+        По существу, данное решение лучше рассматривать как параметризацию
+        прикладного кода, которую легко изменить, ничего не нарушая,
+        подобно коррекции начальных условий алгоритма.
+    </p>
+
+
+</section>
+
+<section class="slide">
+    <p >
+        Таким образом можно легко расширить возможности программы <code>printMessage</code>
+    </p>
+    <p class="next">
+       Чтобы повторить сообщение дважды, воспользоваться заголовком h2 и организовать
+       вывод в консоль, вместо модел DOM.
+    </p>
+    <pre class="next">
+    <code>&lt;script&gt;
+    var printMessage = run(console.log, repeat(3), h2, echo);
+    printMessage('Get Functional');
+    </code>
+    </pre>
+
+</section>
+
+
+<section class="slide">
+    <p >
+        Сравнивая функциональное и не функциональное решение, мы видим радикальное отличие и ситль программирования.
+    </p>
+    <p >
+        И это объявсняется декларативным характером разработки, который присущ ФП.
+    </p>
+
 </section>
 
 <section class="slide">
@@ -402,17 +619,75 @@ function increment() {
   <h2>Является ли функция чистой?</h2>
 
   <p class="next">
-    Функция <code>increment()</code> вызывает побочные эффекты от чтения или модификации
-    внешней переменной <code>counter</code>.
+      Эта функция является "нечистой" потому, что она читает или модифицирует
+      внешнюю переменную <code>counter</code>, которая не является локальной
+      в области видимости данной функции.
   </p>
-
   <p class="next">
-    Результат ее выполнения непредсказуем, поскольку переменная <code>counter</code>
-    может измениться влюбой момент в промежутках между вызовами данной функции.
+      В общем можно сказать, что у данной функции имеются побочные эффекты,
+      если в ней читаются данные из внешних источников или записываются
+      данные во внешние источники.
   </p>
-
-
 </section>
+
+<section class="slide">
+    <figure>
+        <img class="cover" src="pictures/side-effect.jpg" alt="Побочный эффект функции">
+    </figure>
+</section>
+
+
+    <section class="slide">
+        <h2>Побочные эффекты могут возникать во многих случаях, например:</h2>
+        <ul>
+            <li class="next">
+                Глобальное изменение переменной, свойства или структуры данных.
+            </li>
+            <li class="next">
+                Обработка вводимых пользователем данных.
+            </li>
+            <li class="next">
+                Генерирование исключения, если только оно не перехватывается в той же самой функции.
+            </li>
+            <li class="next">
+                Вывод сообщений на экран или в журнал регистрации.
+            </li>
+            <li class="next">
+                Запрос HTML-документов, браузерных cookie-файлов или баз данных.
+            </li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <h2>
+            Если в программе нильзя создавать и модифицировать объекты или выводить информацию
+            на экран, то какая практическая польза от такой программы?
+        </h2>
+    </section>
+
+   <section class="slide">
+        <p>
+            На практике функциональное программирование накладывает
+            ограничение не на все изменения состояния.
+        </p>
+        <p class="next">
+            Оно лишь предоставляет каркас, помогающий управлять ими
+            и сокращать их, позволяя в тоже время отделить "чистое от нечистого".
+        </p>
+    </section>
+
+    <section class="slide">
+        <p>
+            На практике функциональное программирование накладывает
+            ограничение не на все изменения состояния.
+        </p>
+        <p class="next">
+            Оно лишь предоставляет каркас, помогающий управлять ими
+            и сокращать их, позволяя в тоже время отделить "чистое от нечистого".
+        </p>
+    </section>
+
+
 
 
 <section class="slide">
