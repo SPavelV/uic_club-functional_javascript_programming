@@ -511,7 +511,7 @@ document.querySelector('#msg').innerHTML='&lt;h1&gt;Hello World'&lt;/h1&gt;'
       Чистые функции (Pure functions)
     </li>
     <li class="next">
-      Ссылочна прозрачность (Referential transparency)
+      Ссылочная прозрачность (Referential transparency)
     </li>
     <li class="next">
       Неизменяемость (Immutability)
@@ -658,15 +658,14 @@ function increment() {
         </ul>
     </section>
 
+
+
     <section class="slide">
         <h2>
             Если в программе нильзя создавать и модифицировать объекты или выводить информацию
             на экран, то какая практическая польза от такой программы?
         </h2>
-    </section>
-
-   <section class="slide">
-        <p>
+        <p class="next">
             На практике функциональное программирование накладывает
             ограничение не на все изменения состояния.
         </p>
@@ -677,15 +676,597 @@ function increment() {
     </section>
 
     <section class="slide">
-        <p>
-            На практике функциональное программирование накладывает
-            ограничение не на все изменения состояния.
-        </p>
         <p class="next">
-            Оно лишь предоставляет каркас, помогающий управлять ими
-            и сокращать их, позволяя в тоже время отделить "чистое от нечистого".
+            Расмотрим пример императивной программы. В которой выполняется поиск
+            учащегося по его номеру социального страхования и отображения его в браузере.
         </p>
     </section>
+
+    <section class="slide">
+            <figure>
+                <img class="cover" src="pictures/example-search-student.png" alt="Поиск студента">
+            </figure>
+    </section>
+
+    <section class="slide">
+        <figure>
+            <img class="cover" src="pictures/example-search-student2.png" alt="Поиск студента">
+        </figure>
+    </section>
+
+    <section class="slide">
+        <figure>
+            <img class="cover" src="pictures/example-search-student3.png" alt="Поиск студента">
+        </figure>
+    </section>
+
+
+    <section class="slide">
+        <figure>
+            <img class="cover" src="pictures/example-search-student4.png" alt="Поиск студента">
+        </figure>
+    </section>
+
+    <section class="slide">
+        <h2>Побочные эффекты:</h2>
+        <ul>
+            <li class="next">
+                Ссылка внути функции на внешнюю переменню(db) для доступа к данным, в любой момент
+                ссылка может стать пустой(null), или изменится в промежутке межу вывзовами функции.
+            </li>
+            <li class="next">
+                Глобальная переменная elementId, может в любой момент измениться, выйдя из под контроля.
+            </li>
+
+        </ul>
+    </section>
+
+    <section class="slide">
+        <h2>Побочные эффекты:</h2>
+        <ul>
+            <li class="next">
+                Элементы HTML-разметки модифицируются непосредственно. А сам HTML документ является изменяемым,
+                общим, глобальным ресурсом.
+            </li>
+            <li class="next">
+                Эта функция может сгенерировать исключения, если учащийся не найден, что может привести к
+                сворачиванию  стека вызовов и аварийному завершению программы.
+            </li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <p>
+            Изменим функцию использую функциональный подход
+        </p>
+
+        <ul>
+            <li class="next">
+                Разделим длинную функцию на более короткие функции с отдельным назначением.
+            </li>
+            <li class="next">
+               Сократим количество побочных эффектов, явно определив все
+               аргументы, которые требуются функциям для выполнения их значений.
+            </li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <figure>
+            <img class="cover" src="pictures/example-search-student-update.png" alt="Поиск студента">
+        </figure>
+    </section>
+
+    <section class="slide">
+        <figure>
+            <img class="cover" src="pictures/example-search-student-update2.png" alt="Поиск студента">
+        </figure>
+    </section>
+
+    <section class="slide">
+        <figure>
+            <img class="cover" src="pictures/example-search-student-update3.png" alt="Поиск студента">
+        </figure>
+    </section>
+
+    <section class="slide">
+        <figure>
+            <img class="cover" src="pictures/example-search-student-update3.png" alt="Поиск студента">
+        </figure>
+    </section>
+
+    <section class="slide">
+        <figure>
+            <img class="cover" src="pictures/example-search-student-total.png" alt="Поиск студента">
+        </figure>
+    </section>
+
+
+    <section class="slide">
+        <figure>
+            <img class="cover" src="pictures/example-search-student-total2.png" alt="Поиск студента">
+        </figure>
+    </section>
+
+    <section class="slide">
+        <h2>Таким образмо мы получаем следующие преимущества:</h2>
+        <ul>
+            <li class="next">
+               Программа стала более гибкой, т.к. теперь она состоит из 3 повторно используемых компонентов
+            </li>
+            <li class="next">
+               Повторное использование мелкоструктырных ф-ций направленно на повышение производительности,
+               поскольку оно позволяет значительно сократить объем кода, требующего активного сопровождения.
+            </li>
+            <li class="next">
+                Удобочитаемость исходного кода.
+            </li>
+            <li class="next">
+                Взаимодействие с объектами HTML-разметки переносится в отдельню ф-цию,
+                полностью отделяя "чистое" поведение от "нечистого".
+            </li>
+        </ul>
+    </section>
+
+
+    <section class="slide">
+       <h2>Ссылочная прозрачность</h2>
+        <p class="next">
+            Ссылочная прозрачность является более формальным способом определения
+            "чистой" функции.
+        </p>
+
+        <p class="next">
+           <i>"Чистота"</i> в этом смысле означает существование "чистого" соответствия
+           аргументов функции ее возвращаемому значению.
+        </p>
+
+        <p class="next">
+            Так, если функция постоянно возвращает один и тот же результат по
+            тем же самым входным данным, то она считается <i>ссылочно-прозрачной</i>.
+         </p>
+    </section>
+
+    <section class="slide">
+        <p>
+            Например, рассмотренная ранее функция <code>Increment()</code>,
+            сохранаяющая состояние, не
+            является ссылочно-прозрачной, т.к.
+            возвращаемое значение сильно зависит от
+            внешней переменной <code>counter</code>
+        </p>
+<pre class="next">
+<code>&lt;script&gt;
+    let counter = 0;
+    function increment() {
+        return ++counter;
+    }
+</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>
+          Как сделать функцию ссылочно-прозрачной?
+        </h2>
+
+<pre class="next">
+<code>&lt;script&gt;
+    const increment = counter => counter + 1;
+</code>
+</pre>
+    <p class="next">
+        Исключить зависимое состояние(т.е. внешнюю переменную),
+        превартив его в формальный параметр, явно определив в
+        <i>сигнатуре</i> данной функции.
+    </p>
+    </section>
+
+    <section class="slide">
+        <p class="note">
+            <i>
+                Сигнатура — часть общего объявления функции, позволяющая средствам
+                трансляции идентифицировать функцию среди других. То есть это название функции и ее параметры.
+            </i>
+        </p>
+
+        <p class="next">
+            Теперь данная функция стабильна и всегда
+            возвращает один и тот же результат.
+        </p>
+        <p class="next">
+            Иначе на возвращаемое значение, будет оказывать влияне какой-нибудь внешний фактор.
+        </p>
+
+    </section>
+
+    <section class="slide">
+        <p>
+            Данное свойство желательно в функциях
+            потому, что оно упрощает не только тестирование,
+            но и понимание всей программы в целом.
+        </p>
+        <p class="next">
+            С помощью волшебной функции <code>run()</code>
+            сравним применение функциональной и императивной
+            версии <code>increment()</code>.
+        </p>
+    </section>
+    <section class="slide">
+        <figure>
+            <img class="cover" src="pictures/imperative-declarative.png" alt="Сравним императивную и функциональную версию incremen()">
+        </figure>
+    </section>
+
+    <section class="slide">
+        <figure>
+            <img class="cover" src="pictures/imperative-declarative2.png" alt="Сравним императивную и функциональную версию incremen()">
+        </figure>
+    </section>
+
+
+    <section class="slide">
+        <figure>
+            <img class="cover" src="pictures/imperative-declarative3.png" alt="Сравним императивную и функциональную версию incremen()">
+        </figure>
+    </section>
+
+
+    <section class="slide">
+        <p>
+           Таким образом используюя функциональный подход можно составить в уме модель состояния
+           системы и добиться желаемого результата посредством <i>переписывания</i> или <i>подстановки</i>.
+        </p>
+
+        <p class="next">
+            Рассмотрим более конкретный пример, допустив, что любую программу можно
+            представить в виде ряда функций.
+        </p>
+        <p class="next">
+            Обрабатывающих заданные входные данные и получающих конечный результат.
+        </p>
+    </section>
+
+    <section class="slide">
+        <p>
+           Выразим это допущение в псевдофрорме следующим образом
+        </p>
+<pre class="next">
+<code>&lt;script&gt;
+    Program = [Input] + [func1, func2, func3, ...] -> Output
+</code>
+</pre>
+    </section>
+
+    <section class="slide">
+        <p>
+                Если функции <code>func1, func2, func3</code> являются "чистыми",
+                то данную программу можно переписать, подставив получаемые
+                в них значения:
+            </p>
+<pre class="next">
+<code>&lt;script&gt;
+    Program = [Input] + [val1, val2, val3, ...] -> Output
+</code>
+</pre>
+    </section>
+
+    <section class="slide">
+        <p>
+            Расмотрим пример вычисление средней оценки учащегося:
+        </p>
+<pre class="next">
+<code>&lt;script&gt;
+    const input = [80, 90, 100];
+    const average = (arr) => divide(sum(arr), size(arr));
+    average (input); //-> 90
+</code>
+</pre>
+
+    </section>
+
+    <section class="slide">
+        <p>
+            Благодаря ссылочной прозрачности функции <code>some()</code>
+            и <code>size()</code> выражение
+<pre class="next">
+<code>&lt;script&gt;
+    const average = (arr) => divide(sum(arr), size(arr));
+</code>
+</pre>
+        </p>
+        <p class="next">
+            Можно переписать для заданных входных данных:
+        </p>
+<pre class="next">
+<code>&lt;script&gt;
+    const average = divide(270, 3); //-> 90
+</code>
+</pre>
+    </section>
+
+    <section class="slide">
+        <p>
+            Функция <code>divide()</code> всегда "чистая",
+            и поэтому ее можно переписать используюя
+            ее математическое обозначение.
+        </p>
+        <p class="next">
+            Таким образом, для тех же самых входных данных
+            средняя оцентка всегда равна <b>270/3 = 90</b>
+        </p>
+
+        <p class="next">
+            Ссылочная прозрачность дает возможность анализировать программы подобным
+            систематическим и почти математическим образом.
+        </p>
+    </section>
+
+    <section class="slide">
+        <p>
+            Полная реализация программы:
+        </p>
+<pre class="next">
+<code>&lt;script&gt;
+    const sum = (total, current) => total + current;
+    const total = arr => arr.reduce(sum);
+    const size = arr => arr.length;
+    const divide = (a, b) => a / b;
+    const average = arr => divide(total(arr), size(arr));
+    average(input); //-> 90
+</code>
+</pre>
+
+    </section>
+
+    <section class="slide">
+        <p>
+           Определив заранее все аргументы функции, можно избежать побочных эффектов в
+           большинстве случаев, когда задаются скалярные значения.
+        </p>
+
+        <p class="next">
+            Но если функции передаются объекты по ссылке, следует принять особые
+            меры предосторожности, чтобы не изменить эти объекты неумышленно.
+        </p>
+    </section>
+
+    <section class="slide">
+        <h2>Сохранение данных неизменяемыми(immutable data)</h2>
+    </section>
+
+
+    <section class="slide">
+        <p>
+            Неизменяемыми называются такие данные, которые нельзя изменить после их создания.
+        </p>
+
+        <p class="next">
+           Пример:
+        </p>
+
+<pre class="next">
+<code>&lt;script&gt;
+const sortDesc = function (arr) {
+    return arr.sort(function (a, b) {
+        return b - a;
+    });
+}
+</code>
+</pre>
+    </section>
+
+    <section class="slide">
+        <p>
+           На первый взгляд, код идеально чист от побочных эффектов.
+        </p>
+        <p class="next">
+            Он делает то, что от него требуется, обрабатывая получаемый массив.
+            И возвращая его отстортированным по убывающей.
+        </p>
+
+<pre class="next">
+<code>&lt;script&gt;
+    var arr = [1,2,3,4,5,6,7,8,9];
+    sortDesc(arr); //-> [9,8,7,6,5,4,3,2,1]
+</code>
+</pre>
+    </section>
+
+    <section class="slide">
+        <p>
+            Но функция <code>Array.sort()</code> сохраняет состояние, вызывая
+            побочный эффект сортировки массива на месте, в результате чего изменяется
+            первоначальная ссылка
+        </p>
+
+        <p class="next">
+            Но если функции передаются объекты по ссылке, следует принять особые
+            меры предосторожности, чтобы не изменить эти объекты неумышленно.
+        </p>
+    </section>
+
+    <section class="slide">
+        <p>
+            Итак сущность ФП можно выразить в более краткой форме.
+        </p>
+
+        <p class="next">
+            <i>Функциональное программирование означает декларативное вычисление "чистых функций"
+                для создания неизменяемых программ, исключая внешние наблюдаемеы
+                побочные эффекты.
+            </i>
+        </p>
+    </section>
+
+
+    <section class="slide">
+        <p>
+            Большинство трудностей с которыми сталкиваются разработчики приложений
+            на javascript, обусловленны  интенсивным применением крупных функций.
+        </p>
+
+        <p class="next">
+            Которые в значительной степени зависят от внешних общих переменных,
+            выполняют немало операций ветвления и не обладают ясной структурой.
+        </p>
+
+        <p class="next">
+            Образую общую сеть изменяемых, глобальных данных, которые с трудом
+            поддаются отслеживанию и отладке.
+        </p>
+    </section>
+
+    <section class="slide">
+        <h2>
+            Таким образ ФП способно:
+        </h2>
+
+            <ul>
+                <li class="next">
+                    Побуждать к декомпозиции рещаемых задач на простые функции;
+                </li>
+                <li class="next">
+                    Обрабатывать данные, используя текучие цепочки;
+                </li>
+                <li class="next">
+                    Уменьшать сложность управляемого событиями кода, применяя принципы реактивного программирования;
+                </li>
+            </ul>
+    </section>
+
+
+
+    <section class="slide">
+        <h2>
+            Побуждение к декомпозиции:
+        </h2>
+
+        <p class="next">
+           По существу ФП, означает определенное сочетание декомпозиции(разложения программы на мелкие части) и
+           композиции(соединения отдельных частей в единое целое)
+        </p>
+
+        <p class="next">
+            Как на примере программы showStudent
+        </p>
+    </section>
+
+    <section class="slide">
+        <figure>
+            <img class="cover" src="pictures/example-search-student-total2.png" alt="Поиск студента">
+        </figure>
+    </section>
+
+    <section class="slide">
+        <figure>
+            <img class="cover" src="pictures/decompostion.png" alt="декомпозиции(разложения программы на мелкие части)">
+        </figure>
+    </section>
+
+    <section class="slide">
+        <h2>
+            Побуждение к декомпозиции:
+        </h2>
+
+        <p class="next">
+            Изначально мы пользовались вошлебной функцие run(), чтобы соеденить вместе функции, образующую целую программы.
+        </p>
+
+        <p class="next">
+           На самом деле run - это псевдоним композиции - одной из самы важных методик ФП.
+        </p>
+
+        <p class="next">
+          Композиция 2 функций дает еще одну ф-цию, которая получается в результате подключения
+          выхода одной функции на вход другой.
+        </p>
+    </section>
+
+
+    <section class="slide">
+        <h2>
+           Рассмотрим блок схему композици программы showStudent:
+        </h2>
+
+    </section>
+
+    <section class="slide">
+        <figure>
+            <img class="cover" src="pictures/compose.png" alt="декомпозиции(разложения программы на мелкие части)">
+        </figure>
+    </section>
+
+
+    <section class="slide">
+        <h2>
+            Побуждение к декомпозиции:
+        </h2>
+        <p class="next">
+            Поток данных композиции 2 функций. Значение возвращаеме из ф-ции find(),
+            должно быть совместиммы по типу и количеству аргуменов(арности)
+            с функцие csv(),возавращающей, в свою очередь, информацию, которая
+            может быть использована в вункции append()
+        </p>
+
+        <p class="next">
+            Функции compos() передаются дргуие функции в качестве аргументов и
+            поэтому она назватся <i>функцией высшего порядка</i>.
+        </p>
+
+    </section>
+
+
+
+    <section class="slide">
+        <h2>
+            Резюме:
+        </h2>
+        <ul>
+            <li class="next">
+               Код, в котором применяютия "чистые" функции, неспособен изменить
+               или нарушить глобальное состояние, что помогает сделать
+               код более удобным для тестирования и сопровождения.
+            </li>
+            <li class="next">
+               ФП осуществляется в декларативном стиле, упрощающем понимание прикладного кода.
+            </li>
+            <li class="next">
+                Обработка данных, хранящихся в элементах коллекции,
+                плавно выполняется по цепочки функций, связывающих вмесете такие операции
+                как map и reduce.
+            </li>
+        </ul>
+
+    </section>
+
+
+    <section class="slide">
+        <h2>
+            Резюме:
+        </h2>
+        <ul>
+            <li>
+                В функциональном программировании функции рассматриваются как стандартные блоки
+                с учетом того, что функции первого класса и высшего порядка улучшают модульность
+                и повторное использование прикладного кода.
+            </li>
+            <li class="next">
+                Сложность управляемых событиями программ можно уменьшить,
+                сочетая функиональное программирование с реактивным.
+            </li>
+        </li>
+        </ul>
+
+    </section>
+
+
+    <section class="slide">
+            <figure>
+                <img class="cover" src="pictures/slowpoke_on_crutches.jpg" alt="декомпозиции(разложения программы на мелкие части)">
+            </figure>
+        </section>
+
 
 
 
