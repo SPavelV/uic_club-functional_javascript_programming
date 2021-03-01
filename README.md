@@ -1,4 +1,4 @@
-[Презентация](http://functional-js.bugbug.ru/) по функциональному программированию на javascript.
+Презентацияпо функциональному программированию на javascript.
 
 Сделано в [shower](https://github.com/shower/shower)
 
